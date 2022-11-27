@@ -34,7 +34,7 @@ workflows:
       - build-android:
           requires:
           - check
-      - build-ios
+      - build-ios:
           requires:
           - check
 
