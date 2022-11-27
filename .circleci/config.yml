@@ -4,19 +4,38 @@ orbs:
   flutter: circleci/flutter@1.1.0
 
 jobs:
-  build:
+  check:
     docker:
       - image: cirrusci/flutter:latest
     steps:
       - checkout
       - run: flutter doctor
-      - run: flutter test 
-      - run: flutter -v build apk
+      - run: flutter analyze lib
+      - run: flutter test
+  build-android:
+    docker:
+      - image: cirrusci/flutter:latest
+    steps:
+      - checkout
+      - run: flutter build -v apk
+  build-ios:
+    macos:
+      xcode: 14.1
+    steps:
+      - checkout
+      - run: flutter build -v ios
+
+
 
 workflows:
   lint-and-test:
     jobs:
-      - build
-      
+      - check
+      - build-android:
+          requires:
+          - check
+      - build-ios
+          requires:
+          - check
 
 # VS Code Extension Version: 1.1.1
