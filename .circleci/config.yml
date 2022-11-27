@@ -3,23 +3,21 @@ version: 2.1
 orbs:
   flutter: circleci/flutter@1.1.0
 
-jobs:
-  lint:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      - checkout
-      - flutter/lint:
-          version: 2.2.3
-  test:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      - checkout
-      - flutter/test:
-          version: 2.2.3
-      - store_test_results:
-          path: build/test-results
+# jobs:
+#   lint:
+#     docker:
+#       - image: cimg/base:stable
+#     steps:
+#       - checkout
+      
+#   test:
+#     docker:
+#       - image: cimg/base:stable
+#     steps:
+#       - checkout
+      
+#       - store_test_results:
+#           path: build/test-results
 
 
 
@@ -27,9 +25,10 @@ jobs:
 workflows:
   lint-and-test:
     jobs:
-      - lint
-      - test:
-          requires:
-            - lint
+      - flutter/lint:
+          version: 2.2.3
+      - flutter/test:
+          version: 2.2.3
+      
 
 # VS Code Extension Version: 1.1.1
