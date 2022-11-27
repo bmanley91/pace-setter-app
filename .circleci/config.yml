@@ -27,7 +27,7 @@ workflows:
     jobs:
       - flutter/lint:
           version: 2.2.3
-      - flutter/test:
+      - flutter/unit_test:
           version: 2.2.3
       
 
