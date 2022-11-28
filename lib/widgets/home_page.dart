@@ -10,6 +10,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int _selectedNavIndex = 0;
+
+  void _onNavTapped(int index) {
+    setState(() {
+      _selectedNavIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,6 +30,21 @@ class _HomePageState extends State<HomePage> {
                 child: ListView(children: const <Widget>[
                   // PresetSelector(),
                   PaceCalculator()
-                ]))));
+                ]))),
+        bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.business),
+              label: 'Business',
+            ),
+          ],
+          currentIndex: _selectedNavIndex,
+          selectedItemColor: Colors.blue[500],
+          onTap: _onNavTapped,
+        ));
   }
 }
