@@ -66,7 +66,7 @@ class _TimeCalculatorState extends State<TimeCalculator> {
         CalculatorField(
           label: 'Pace',
           value: _pace,
-          hint: 'Format mm:ss',
+          hint: 'Format hh:mm:ss',
           onChanged: _handlePaceChanged,
         ),
       ]),
