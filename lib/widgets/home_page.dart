@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pace_tracker_app/widgets/pace_calculator.dart';
-import 'package:pace_tracker_app/widgets/description.dart';
+import 'package:pace_tracker_app/widgets/time_calculator.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  final _calculators = <Widget>[PaceCalculator(), Text('oh hai')];
+  final _calculators = const <Widget>[PaceCalculator(), TimeCalculator()];
 
   @override
   Widget build(BuildContext context) {
