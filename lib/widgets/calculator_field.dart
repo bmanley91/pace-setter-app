@@ -7,14 +7,15 @@ class CalculatorField extends StatefulWidget {
   final String hint;
   final String label;
   final ValueChanged<String> onChanged;
+  final TextEditingController controller;
 
-  const CalculatorField({
-    super.key,
-    required this.value,
-    required this.onChanged,
-    required this.hint,
-    required this.label,
-  });
+  const CalculatorField(
+      {super.key,
+      required this.value,
+      required this.onChanged,
+      required this.hint,
+      required this.label,
+      required this.controller});
 
   @override
   State<StatefulWidget> createState() => _CalculatorFieldState();
@@ -26,14 +27,14 @@ class _CalculatorFieldState extends State<CalculatorField> {
     return Padding(
         padding: const EdgeInsets.only(top: 12),
         child: TextField(
-          onChanged: widget.onChanged,
-          decoration: InputDecoration(
-            hintText: widget.hint,
-            labelText: widget.label,
-          ),
-          keyboardType: TextInputType.number,
-          inputFormatters: [TimeTextInputFormatter()],
-        ));
+            onChanged: widget.onChanged,
+            decoration: InputDecoration(
+              hintText: widget.hint,
+              labelText: widget.label,
+            ),
+            keyboardType: TextInputType.number,
+            inputFormatters: [TimeTextInputFormatter()],
+            controller: widget.controller));
   }
 }
 

@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 
 class DistanceField extends StatefulWidget {
   final ValueChanged<String> onChanged;
+  final TextEditingController controller;
 
-  const DistanceField({
-    super.key,
-    required this.onChanged,
-  });
+  const DistanceField(
+      {super.key, required this.onChanged, required this.controller});
 
   @override
   State<StatefulWidget> createState() => _DistanceFieldState();
@@ -24,6 +23,7 @@ class _DistanceFieldState extends State<DistanceField> {
             labelText: 'Distance',
           ),
           keyboardType: TextInputType.number,
+          controller: widget.controller,
         ));
   }
 }
