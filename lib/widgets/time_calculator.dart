@@ -17,6 +17,8 @@ class _TimeCalculatorState extends State<TimeCalculator> {
   String _time = '';
   String _pace = '';
 
+  final _controller = TextEditingController();
+
   bool _shouldCalcTime() {
     final distValid = isDistanceValid(_distance);
     final paceValid = isPaceValid(_pace);
@@ -62,13 +64,14 @@ class _TimeCalculatorState extends State<TimeCalculator> {
             )),
         DistanceField(
           onChanged: _handleDistanceChanged,
+          controller: _controller,
         ),
         CalculatorField(
-          label: 'Pace',
-          value: _pace,
-          hint: 'Format hh:mm:ss',
-          onChanged: _handlePaceChanged,
-        ),
+            label: 'Pace',
+            value: _pace,
+            hint: 'Format hh:mm:ss',
+            onChanged: _handlePaceChanged,
+            controller: _controller),
       ]),
     );
   }
