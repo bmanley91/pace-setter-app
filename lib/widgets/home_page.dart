@@ -18,6 +18,8 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  final _calculators = <Widget>[PaceCalculator(), Text('oh hai')];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,10 +29,7 @@ class _HomePageState extends State<HomePage> {
         body: Center(
             child: Padding(
                 padding: const EdgeInsets.all(32),
-                child: ListView(children: const <Widget>[
-                  // PresetSelector(),
-                  PaceCalculator()
-                ]))),
+                child: _calculators.elementAt(_selectedNavIndex))),
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
