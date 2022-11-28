@@ -21,11 +21,13 @@ class CalculatorField extends StatefulWidget {
 class _CalculatorFieldState extends State<CalculatorField> {
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      decoration: InputDecoration(
-        hintText: widget.hint,
-        labelText: widget.label,
-      ),
-    );
+    return Padding(
+        padding: const EdgeInsets.only(top: 12),
+        child: TextField(
+          decoration: InputDecoration(
+            hintText: widget.hint,
+            labelText: widget.label,
+          ),
+        ));
   }
 }
