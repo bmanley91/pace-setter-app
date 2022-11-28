@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pace_tracker_app/widgets/clear_button.dart';
 
 import '../util/calculators.dart';
 import '../util/validators.dart';
@@ -17,7 +18,8 @@ class _TimeCalculatorState extends State<TimeCalculator> {
   String _time = '';
   String _pace = '';
 
-  final _controller = TextEditingController();
+  final _distanceController = TextEditingController();
+  final _paceController = TextEditingController();
 
   bool _shouldCalcTime() {
     final distValid = isDistanceValid(_distance);
@@ -47,6 +49,16 @@ class _TimeCalculatorState extends State<TimeCalculator> {
     });
   }
 
+  void _clearAll() {
+    _distanceController.clear();
+    _paceController.clear();
+    setState(() {
+      _distance = '';
+      _pace = '';
+      _time = '';
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -64,14 +76,15 @@ class _TimeCalculatorState extends State<TimeCalculator> {
             )),
         DistanceField(
           onChanged: _handleDistanceChanged,
-          controller: _controller,
+          controller: _distanceController,
         ),
         CalculatorField(
             label: 'Pace',
             value: _pace,
             hint: 'Format hh:mm:ss',
             onChanged: _handlePaceChanged,
-            controller: _controller),
+            controller: _paceController),
+        ClearButton(clearFunction: _clearAll)
       ]),
     );
   }
