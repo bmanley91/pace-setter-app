@@ -1,3 +1,5 @@
+import 'dart:math';
+
 double timeStringToSeconds(String timeString) {
   final timeNums =
       timeString.split(':').map((element) => double.parse(element));
@@ -23,12 +25,17 @@ String secondsToTimeString(double inputSeconds) {
   final seconds = inputSeconds % 60;
 
   return hours != 0
-      ? '$hours:${assureTwoChars(minutes)}:${assureTwoChars(seconds)}'
-      : '$minutes:${assureTwoChars(seconds)}';
+      ? '$hours:${assureTwoChars(minutes)}:${assureTwoChars(roundDouble(seconds, 2))}'
+      : '$minutes:${assureTwoChars(roundDouble(seconds, 2))}';
 }
 
 String assureTwoChars(var input) {
   String inputString = input.toString();
 
   return input < 10 ? '0$inputString' : inputString;
+}
+
+double roundDouble(double value, int places) {
+  double mod = pow(10.0, places).toDouble();
+  return ((value * mod).round().toDouble() / mod);
 }
