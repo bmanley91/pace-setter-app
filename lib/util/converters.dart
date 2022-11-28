@@ -1,5 +1,6 @@
-int timeStringToSeconds(String timeString) {
-  final timeNums = timeString.split(':').map((element) => int.parse(element));
+double timeStringToSeconds(String timeString) {
+  final timeNums =
+      timeString.split(':').map((element) => double.parse(element));
 
   if (timeNums.length == 3) {
     final hourSeconds = timeNums.elementAt(0) * 3600;
@@ -15,7 +16,7 @@ int timeStringToSeconds(String timeString) {
   }
 }
 
-String secondsToTimeString(int inputSeconds) {
+String secondsToTimeString(double inputSeconds) {
   final hours = inputSeconds ~/ 3600;
   final remainder = inputSeconds - hours * 3600;
   final minutes = remainder ~/ 60;
@@ -27,5 +28,6 @@ String secondsToTimeString(int inputSeconds) {
 }
 
 String assureTwoChars(var input) {
-  return input.toString().length < 2 ? '0$input' : input;
+  String inputString = input.toString();
+  return inputString.length < 2 ? '0$inputString' : inputString;
 }
