@@ -29,6 +29,7 @@ class _CalculatorFieldState extends State<CalculatorField> {
             hintText: widget.hint,
             labelText: widget.label,
           ),
+          keyboardType: TextInputType.number,
         ));
   }
 }
