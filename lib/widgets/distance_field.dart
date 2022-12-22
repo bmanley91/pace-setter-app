@@ -22,7 +22,7 @@ class _DistanceFieldState extends State<DistanceField> {
             hintText: 'Distance in miles',
             labelText: 'Distance',
           ),
-          keyboardType: TextInputType.number,
+          keyboardType: const TextInputType.numberWithOptions(decimal: true),
           controller: widget.controller,
         ));
   }
