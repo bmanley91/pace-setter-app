@@ -8,7 +8,6 @@ workflows:
 
 jobs:
   build-and-test:
-    name: Build and Test
     docker:
       - image: cirrusci/flutter:3.3.10
     environment:
