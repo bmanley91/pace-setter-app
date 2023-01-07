@@ -1,0 +1,44 @@
+version: 2.1
+
+orbs:
+  flutter: circleci/flutter@1.1.0
+
+workflows:
+  test:
+    jobs:
+      - flutter/unit_test:
+          version: 2.2.3
+
+# jobs:
+#   build:
+#     docker:
+#       - image: circleci/flutter:3.3.10
+#     environment:
+#       - FLUTTER_ROOT: /usr/local/flutter
+#       - FLUTTER_VERSION: "3.3.10"
+#       - DART_VERSION: "2.18.6"
+#     steps:
+#       - checkout
+#       - restore_cache:
+#           keys:
+#             - flutter-tool-cache-{{ checksum "pubspec.yaml" }}
+#             - flutter-tool-cache-
+#       - run:
+#           name: Install Flutter
+#           command: |
+#             set -x
+#             git clone https://github.com/flutter/flutter.git -b stable
+#             export PATH=`pwd`/flutter/bin:$PATH
+#             flutter doctor
+#       - save_cache:
+#           paths:
+#             - /usr/local/flutter/.pub-cache
+#             - /usr/local/flutter/bin/cache
+#           key: flutter-tool-cache-{{ checksum "pubspec.yaml" }}
+#       - run:
+#           name: Install Dependencies
+#           command: flutter pub get
+#       - run:
+#           name: Run Tests
+#           command: flutter test
+
