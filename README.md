@@ -1,16 +1,40 @@
-# pace_tracker_app
+# Pace Tracker App
 
-A new Flutter project.
+## Setup
+1. Clone this repo:
+    ```
+    git clone  git@github.com:bmanley91/pace-tracker-app.git
+    ```
+1. Install depdencies:
+    ```
+    flutter pub get
+    ```
+1. Run tests:
+    ```
+    flutter test
+    ```
 
-## Getting Started
+## Branching
+- Release branches are made off of master with a naming convention of `release-<semver>` (e.g. `release-1.0.4`). 
+- Feature branches are made off of and merged into release branches.
+- Release branches are merged into master once they are released.
 
-This project is a starting point for a Flutter application.
+## Building
+Before building for a release make sure to update the version in pubspec.yaml to have a unique build number.
+```
+...
+version: <semver>+<build_number>
+...
+```
 
-A few resources to get you started if this is your first Flutter project:
+### iOS
+Build an ipa for iOS App Store distribution with
+```
+flutter build ipa
+```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Android
+Build an app bundle for Google Play Store distribution with
+```
+flutter build appbundle --build-name <version>
+```
