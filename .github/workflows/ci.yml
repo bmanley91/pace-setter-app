@@ -5,11 +5,11 @@ name: Flutter CI
 on:
   push:
     branches:
-    - develop
+    - release-*
   pull_request:
     branches:
-    - develop
-    - main
+    - release-*
+    - master
 
 # on: push    # Default will running for every branch.
 
