@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'widgets/home_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const PaceCheckerApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class PaceCheckerApp extends StatelessWidget {
+  const PaceCheckerApp({super.key});
 
   @override
   Widget build(BuildContext context) {
