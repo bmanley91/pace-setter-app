@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           title: const Text('Pace Checker'),
         ),
-        endDrawer: SettingsDrawer(),
+        endDrawer: const SettingsDrawer(),
         body: Center(
             child: Padding(
                 padding: const EdgeInsets.all(32),

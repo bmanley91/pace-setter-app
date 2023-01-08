@@ -13,7 +13,7 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
-        children: [UnitSwitcher()],
+        children: const [UnitSwitcher()],
       ),
     );
   }
