@@ -9,7 +9,7 @@ void main() {
       (WidgetTester tester) async {
     // Build HomePage
     await tester.pumpWidget(PaceCheckerApp(
-      appStore: store,
+      appStore: _store,
     ));
 
     final titleFinder = find.text('Pace Checker');
@@ -18,7 +18,7 @@ void main() {
   });
 }
 
-final store = Store<AppState>(
+final _store = Store<AppState>(
   metricSettingReducer,
   initialState: AppState(),
 );
