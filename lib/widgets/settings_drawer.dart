@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pace_tracker_app/util/constants.dart';
+import 'package:pace_tracker_app/widgets/shill.dart';
 import 'package:pace_tracker_app/widgets/unit_switcher.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsDrawer extends StatefulWidget {
   const SettingsDrawer({super.key});
@@ -12,8 +15,12 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
-        children: const [UnitSwitcher()],
+      child: Column(
+        children: const [
+          SafeArea(child: UnitSwitcher()),
+          Spacer(),
+          SafeArea(child: Shill(urlLauncher: launch, url: kofiUrl))
+        ],
       ),
     );
   }
