@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:pace_tracker_app/redux/app_state.dart';
 import 'package:pace_tracker_app/util/mappers.dart';
 
 class DistanceField extends StatefulWidget {
@@ -16,8 +17,9 @@ class DistanceField extends StatefulWidget {
 class _DistanceFieldState extends State<DistanceField> {
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<bool, String>(
-        converter: (store) => mapMetricStoreStateToString(store.state),
+    return StoreConnector<AppState, String>(
+        converter: (store) =>
+            mapMetricStoreStateToString(store.state.metricUnitsEnabled),
         builder: (context, unit) {
           return Padding(
               padding: const EdgeInsets.only(top: 12),

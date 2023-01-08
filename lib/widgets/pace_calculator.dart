@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:pace_tracker_app/redux/app_state.dart';
 import 'package:pace_tracker_app/util/mappers.dart';
 import 'package:pace_tracker_app/widgets/calculator_field.dart';
 import 'package:pace_tracker_app/widgets/clear_button.dart';
@@ -63,7 +64,7 @@ class _PaceCalculatorState extends State<PaceCalculator> {
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<bool, _PaceCalculatorViewModel>(
+    return StoreConnector<AppState, _PaceCalculatorViewModel>(
         builder: (BuildContext context, _PaceCalculatorViewModel viewModel) {
           return Form(
               child: Column(
@@ -98,13 +99,15 @@ class _PaceCalculatorState extends State<PaceCalculator> {
         },
         converter: (store) => _PaceCalculatorViewModel(
             state: store.state,
-            unitShortString: mapMetricStoreStateToShortString(store.state),
-            unitString: mapMetricStoreStateToString(store.state)));
+            unitShortString: mapMetricStoreStateToShortString(
+                store.state.metricUnitsEnabled),
+            unitString:
+                mapMetricStoreStateToString(store.state.metricUnitsEnabled)));
   }
 }
 
 class _PaceCalculatorViewModel {
-  final bool state;
+  final AppState state;
   final String unitString;
   final String unitShortString;
 

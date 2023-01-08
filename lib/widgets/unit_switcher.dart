@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:pace_tracker_app/redux/app_state.dart';
 import 'package:pace_tracker_app/redux/metric_state_action.dart';
 
 class UnitSwitcher extends StatefulWidget {
@@ -10,15 +11,13 @@ class UnitSwitcher extends StatefulWidget {
 }
 
 class _UnitSwitcherState extends State<UnitSwitcher> {
-  bool switchState = false;
-
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<bool, _UnitSwitcherViewModel>(
+    return StoreConnector<AppState, _UnitSwitcherViewModel>(
         builder: (BuildContext context, _UnitSwitcherViewModel viewModel) {
       return SwitchListTile(
           title: const Text('Use Metric Units?'),
-          value: viewModel.state,
+          value: viewModel.state.metricUnitsEnabled,
           secondary: const Icon(Icons.language),
           onChanged: viewModel.onChange);
     }, converter: (store) {
@@ -30,7 +29,7 @@ class _UnitSwitcherState extends State<UnitSwitcher> {
 }
 
 class _UnitSwitcherViewModel {
-  final bool state;
+  final AppState state;
   final void Function(bool newState) onChange;
 
   _UnitSwitcherViewModel({required this.state, required this.onChange});
