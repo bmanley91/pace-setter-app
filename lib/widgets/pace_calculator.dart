@@ -73,7 +73,7 @@ class _PaceCalculatorState extends State<PaceCalculator> {
                 child: Text(
                   _pace.isNotEmpty
                       ? 'Pace: $_pace per $unit'
-                      : 'Enter distance and total time to calculate pace',
+                      : 'Enter distance in $unit and total time to calculate pace',
                   style: const TextStyle(
                     fontSize: 24,
                   ),
