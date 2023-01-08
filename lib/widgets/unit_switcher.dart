@@ -10,25 +10,28 @@ class UnitSwitcher extends StatefulWidget {
 }
 
 class _UnitSwitcherState extends State<UnitSwitcher> {
-  bool displayMetric = false;
+  bool switchState = false;
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<bool, VoidCallback>(builder: (context, callback) {
+    return StoreConnector<bool, _UnitSwitcherViewModel>(
+        builder: (BuildContext context, _UnitSwitcherViewModel viewModel) {
       return SwitchListTile(
           title: const Text('Use Metric Units?'),
-          value: displayMetric,
+          value: viewModel.state,
           secondary: const Icon(Icons.language),
-          onChanged: (value) => {_flipSwitch(value, callback)});
+          onChanged: viewModel.onChange);
     }, converter: (store) {
-      return () => store.dispatch(MetricStateActions.Flip);
+      return _UnitSwitcherViewModel(
+          onChange: ((newState) => store.dispatch(MetricStateActions.flip)),
+          state: store.state);
     });
   }
+}
 
-  void _flipSwitch(bool newValue, VoidCallback callback) {
-    setState(() {
-      displayMetric = newValue;
-    });
-    callback();
-  }
+class _UnitSwitcherViewModel {
+  final bool state;
+  final void Function(bool newState) onChange;
+
+  _UnitSwitcherViewModel({required this.state, required this.onChange});
 }

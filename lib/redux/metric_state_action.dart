@@ -1,1 +1,1 @@
-enum MetricStateActions { Flip }
+enum MetricStateActions { flip }
