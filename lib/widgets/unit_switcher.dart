@@ -11,8 +11,6 @@ class UnitSwitcher extends StatefulWidget {
 }
 
 class _UnitSwitcherState extends State<UnitSwitcher> {
-  bool switchState = false;
-
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, _UnitSwitcherViewModel>(

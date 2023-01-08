@@ -10,20 +10,27 @@ import 'package:redux/redux.dart';
 class MockStore extends Mock implements Store<AppState> {}
 
 void main() {
-  testWidgets('Unit Switcher initial state renders correctly',
-      (WidgetTester tester) async {
-    const testKey = Key('test');
+  const testKey = Key('test');
+  late Widget testApp;
+  late UnitSwitcher unitSwitcher;
 
-    await tester.pumpWidget(StoreProvider<AppState>(
+  setUp(() {
+    unitSwitcher = const UnitSwitcher(
+      key: testKey,
+    );
+    testApp = StoreProvider<AppState>(
       store: _store,
-      child: const MaterialApp(
+      child: MaterialApp(
         home: Scaffold(
-          body: UnitSwitcher(
-            key: testKey,
-          ),
+          body: unitSwitcher,
         ),
       ),
-    ));
+    );
+  });
+
+  testWidgets('Unit Switcher initial state renders correctly',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(testApp);
 
     expect(find.text('Use Metric Units?'), findsOneWidget);
     expect(find.byIcon(Icons.language), findsOneWidget);
@@ -33,7 +40,15 @@ void main() {
         findsOneWidget);
   });
 
-  // testWidgets('', callback)
+  testWidgets(
+      'Flipping the switch updates the metricUnitsEnabled value in state',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(testApp);
+
+    await tester.tap(find.byWidget(unitSwitcher));
+
+    expect(_store.state.metricUnitsEnabled, true);
+  });
 }
 
 final _store = Store<AppState>(
