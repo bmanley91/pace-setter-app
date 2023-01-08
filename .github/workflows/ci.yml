@@ -42,7 +42,9 @@ jobs:
     #- run: flutter analyze .
 
     # Run widget tests for our flutter project.
-    - run: flutter test
+    - run: flutter test --coverage
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
 
     # Build apk.
     - run: flutter build apk --debug
