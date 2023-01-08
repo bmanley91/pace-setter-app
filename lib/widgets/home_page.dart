@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pace_tracker_app/widgets/pace_calculator.dart';
+import 'package:pace_tracker_app/widgets/settings_drawer.dart';
 import 'package:pace_tracker_app/widgets/time_calculator.dart';
 
 class HomePage extends StatefulWidget {
@@ -26,6 +27,7 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           title: const Text('Pace Checker'),
         ),
+        endDrawer: SettingsDrawer(),
         body: Center(
             child: Padding(
                 padding: const EdgeInsets.all(32),
