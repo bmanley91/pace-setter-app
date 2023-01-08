@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pace_tracker_app/widgets/calculator_field.dart';
 import 'package:pace_tracker_app/widgets/clear_button.dart';
 
@@ -61,35 +62,45 @@ class _PaceCalculatorState extends State<PaceCalculator> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-        child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Padding(
-            padding: const EdgeInsets.only(bottom: 12),
-            child: Text(
-              _pace.isNotEmpty
-                  ? 'Pace: $_pace'
-                  : 'Enter distance and total time to calculate pace',
-              style: const TextStyle(
-                fontSize: 24,
-              ),
-              textAlign: TextAlign.center,
-            )),
-        DistanceField(
-          onChanged: _handleDistanceChanged,
-          controller: _distanceController,
-        ),
-        CalculatorField(
-            label: 'Time',
-            value: _time,
-            hint: 'Format hh:mm:ss',
-            onChanged: _handleTimeChanged,
-            controller: _timeController),
-        ClearButton(
-          clearFunction: () => _clearAll(),
-        )
-      ],
-    ));
+    return StoreConnector<bool, String>(
+      builder: (context, unit) {
+        return Form(
+            child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+                padding: const EdgeInsets.only(bottom: 12),
+                child: Text(
+                  _pace.isNotEmpty
+                      ? 'Pace: $_pace per $unit'
+                      : 'Enter distance and total time to calculate pace',
+                  style: const TextStyle(
+                    fontSize: 24,
+                  ),
+                  textAlign: TextAlign.center,
+                )),
+            DistanceField(
+              onChanged: _handleDistanceChanged,
+              controller: _distanceController,
+            ),
+            CalculatorField(
+                label: 'Time',
+                value: _time,
+                hint: 'Format hh:mm:ss',
+                onChanged: _handleTimeChanged,
+                controller: _timeController),
+            ClearButton(
+              clearFunction: () => _clearAll(),
+            )
+          ],
+        ));
+      },
+      converter: (store) => _mapStoreStateToUnit(store.state),
+    );
+  }
+
+  String _mapStoreStateToUnit(bool storeState) {
+    debugPrint('Mapping store state $storeState');
+    return storeState ? 'km' : 'mi';
   }
 }
