@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:pace_tracker_app/redux/app_state.dart';
+import 'package:pace_tracker_app/util/mappers.dart';
 
 class DistanceField extends StatefulWidget {
   final ValueChanged<String> onChanged;
@@ -14,16 +17,22 @@ class DistanceField extends StatefulWidget {
 class _DistanceFieldState extends State<DistanceField> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.only(top: 12),
-        child: TextField(
-          onChanged: widget.onChanged,
-          decoration: const InputDecoration(
-            hintText: 'Distance in miles',
-            labelText: 'Distance',
-          ),
-          keyboardType: const TextInputType.numberWithOptions(decimal: true),
-          controller: widget.controller,
-        ));
+    return StoreConnector<AppState, String>(
+        converter: (store) =>
+            mapMetricStoreStateToString(store.state.metricUnitsEnabled),
+        builder: (context, unit) {
+          return Padding(
+              padding: const EdgeInsets.only(top: 12),
+              child: TextField(
+                onChanged: widget.onChanged,
+                decoration: InputDecoration(
+                  hintText: 'Distance in $unit',
+                  labelText: 'Distance',
+                ),
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
+                controller: widget.controller,
+              ));
+        });
   }
 }
