@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'dart:math' as math;
 
 class CalculatorField extends StatefulWidget {
-  final String value;
   final String hint;
   final String label;
   final ValueChanged<String> onChanged;
@@ -11,7 +10,6 @@ class CalculatorField extends StatefulWidget {
 
   const CalculatorField(
       {super.key,
-      required this.value,
       required this.onChanged,
       required this.hint,
       required this.label,

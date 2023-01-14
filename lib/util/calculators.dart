@@ -1,7 +1,15 @@
+import 'package:flutter/foundation.dart';
+
 import 'converters.dart';
 
-String calculateTime(String pace, String distance) =>
-    secondsToTimeString(double.parse(distance) * timeStringToSeconds(pace));
+String calculateTime(String pace, String distance) {
+  debugPrint('Calculating time with pace: $pace, distance: $distance');
+  return secondsToTimeString(
+      double.parse(distance) * timeStringToSeconds(pace));
+}
 
-String calculatePace(String time, String distance) =>
-    secondsToTimeString(timeStringToSeconds(time) / double.parse(distance));
+String calculatePace(String time, String distance) {
+  debugPrint('Calculating pace with time: $time, distance: $distance');
+  return secondsToTimeString(
+      timeStringToSeconds(time) / double.parse(distance));
+}

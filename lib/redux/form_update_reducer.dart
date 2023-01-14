@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:pace_tracker_app/redux/app_state.dart';
 import 'package:pace_tracker_app/util/calculators.dart';
 
+import '../util/validators.dart';
 import 'form_update_actions.dart';
 
 AppState formUpdateReducer(AppState state, dynamic action) {
-  debugPrint('Form update reducer received $action');
+  // debugPrint('Form update reducer received $action');
   if (action is DistanceUpdateAction) {
     return handleDistanceUpdate(state, action);
   } else if (action is PaceUpdateAction) {
@@ -21,14 +22,15 @@ AppState formUpdateReducer(AppState state, dynamic action) {
 
 AppState handleDistanceUpdate(AppState state, DistanceUpdateAction action) {
   debugPrint(
-      'Handing distance update for distance ${action.distance}, $action');
+      'Handling distance update for distance ${action.distance}, $action');
   late AppState newState;
-  if (action.shouldCalcPace) {
+  if (_willUpdatePace(action.distance, state.time, action.shouldCalcPace)) {
     debugPrint('Calculating pace $action');
     newState = state.copyWith(
         distance: action.distance,
         pace: calculatePace(state.time, action.distance));
-  } else if (action.shouldCalcTime) {
+  } else if (_willUpdateTime(
+      action.distance, state.pace, action.shouldCalcTime)) {
     debugPrint('Calculating time $action');
     newState = state.copyWith(
         distance: action.distance,
@@ -41,8 +43,8 @@ AppState handleDistanceUpdate(AppState state, DistanceUpdateAction action) {
 }
 
 AppState handlePaceUpdate(AppState state, PaceUpdateAction action) {
-  debugPrint('Handing pace update for pace ${action.pace}, $action');
-  if (action.shouldCalcTime) {
+  debugPrint('Handling pace update for pace ${action.pace}, $action');
+  if (_willUpdateTime(state.distance, action.pace, action.shouldCalcTime)) {
     return state.copyWith(
         pace: action.pace, time: calculateTime(action.pace, state.distance));
   }
@@ -51,8 +53,8 @@ AppState handlePaceUpdate(AppState state, PaceUpdateAction action) {
 }
 
 AppState handleTimeUpdate(AppState state, TimeUpdateAction action) {
-  debugPrint('Handing time update for time ${action.time}, $action');
-  if (action.shouldCalcPace) {
+  debugPrint('Handling time update for time ${action.time}, $action');
+  if (_willUpdatePace(state.distance, action.time, action.shouldCalcPace)) {
     final newPace = calculatePace(action.time, state.distance);
     debugPrint('Calculated new pace: $newPace');
     return state.copyWith(time: action.time, pace: newPace);
@@ -62,6 +64,24 @@ AppState handleTimeUpdate(AppState state, TimeUpdateAction action) {
 }
 
 AppState handleClearForm(AppState state) {
-  debugPrint('Handing clear form action');
+  debugPrint('Handling clear form action');
   return state.copyWith(distance: '', time: '', pace: '');
+}
+
+bool _willUpdatePace(String distance, String time, bool shouldCalc) {
+  final distanceCheck = isDistanceValid(distance);
+  final timeCheck = isTimeValid(time);
+  debugPrint(
+      'Will update pace? distanceCheck: $distanceCheck, timeCheck: $timeCheck, shouldCalc? $shouldCalc');
+
+  return distanceCheck && timeCheck && shouldCalc;
+}
+
+bool _willUpdateTime(String distance, String pace, bool shouldCalc) {
+  final distanceCheck = isDistanceValid(distance);
+  final paceCheck = isPaceValid(pace);
+
+  debugPrint(
+      'Will update time? distanceCheck: $distanceCheck, paceCheck: $paceCheck, shouldCalc? $shouldCalc');
+  return distanceCheck && paceCheck && shouldCalc;
 }

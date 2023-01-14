@@ -26,8 +26,8 @@ class _DistanceFieldState extends State<DistanceField> {
         converter: (store) => _DistanceFieldViewModel(
               distance: store.state.distance,
               unit: mapMetricStoreStateToString(store.state.metricUnitsEnabled),
-              onChange: (newState) => store.dispatch(DistanceUpdateAction(
-                  distance: newState,
+              onChange: (newDistance) => store.dispatch(DistanceUpdateAction(
+                  distance: newDistance,
                   shouldCalcPace: widget.shouldUpdatePace,
                   shouldCalcTime: widget.shouldUpdateTime)),
             ),

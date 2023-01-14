@@ -4,7 +4,6 @@ import 'package:pace_tracker_app/redux/app_state.dart';
 import 'package:pace_tracker_app/widgets/clear_button.dart';
 
 import '../redux/form_update_actions.dart';
-import '../util/calculators.dart';
 import '../util/validators.dart';
 import 'calculator_field.dart';
 import 'distance_field.dart';
@@ -17,39 +16,8 @@ class TimeCalculator extends StatefulWidget {
 }
 
 class _TimeCalculatorState extends State<TimeCalculator> {
-  String _distance = '';
-  String _time = '';
-  String _pace = '';
-
   final _distanceController = TextEditingController();
   final _paceController = TextEditingController();
-
-  bool _shouldCalcTime(String distance, String pace) {
-    final distValid = isDistanceValid(distance);
-    final paceValid = isPaceValid(pace);
-    return distValid && paceValid;
-  }
-
-  // void _handlePaceChanged(String newTime) {
-  //   setState(() {
-  //     debugPrint('Pace changed');
-  //     _pace = newTime;
-  //     if (_shouldCalcTime()) {
-  //       debugPrint('Calculating Time');
-  //       _time = calculateTime(_pace, _distance).toString();
-  //     }
-  //   });
-  // }
-
-  void _clearAll() {
-    _distanceController.clear();
-    _paceController.clear();
-    setState(() {
-      _distance = '';
-      _pace = '';
-      _time = '';
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,12 +38,10 @@ class _TimeCalculatorState extends State<TimeCalculator> {
                 )),
             DistanceField(
               controller: _distanceController,
-              shouldUpdateTime: _shouldCalcTime(
-                  viewModel.state.distance, viewModel.state.pace),
+              shouldUpdateTime: true,
             ),
             CalculatorField(
                 label: 'Pace',
-                value: _pace,
                 hint: 'Format hh:mm:ss',
                 onChanged: viewModel.onPaceChange,
                 controller: _paceController),
