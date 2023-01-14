@@ -24,7 +24,7 @@ class _DistanceFieldState extends State<DistanceField> {
   Widget build(BuildContext context) {
     return StoreConnector<AppState, _DistanceFieldViewModel>(
         converter: (store) => _DistanceFieldViewModel(
-              state: store.state,
+              distance: store.state.distance,
               unit: mapMetricStoreStateToString(store.state.metricUnitsEnabled),
               onChange: (newState) => store.dispatch(DistanceUpdateAction(
                   distance: newState,
@@ -49,10 +49,11 @@ class _DistanceFieldState extends State<DistanceField> {
 }
 
 class _DistanceFieldViewModel {
-  final AppState state;
+  // final AppState state;
+  final String distance;
   final String unit;
   final void Function(String newState) onChange;
 
   _DistanceFieldViewModel(
-      {required this.state, required this.unit, required this.onChange});
+      {required this.distance, required this.unit, required this.onChange});
 }

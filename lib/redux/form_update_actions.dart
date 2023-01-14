@@ -28,3 +28,5 @@ class TimeUpdateAction extends FormUpdateAction {
 
   TimeUpdateAction({required this.time, super.shouldCalcPace});
 }
+
+class FormClearAction {}

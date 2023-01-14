@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pace_tracker_app/redux/app_state.dart';
 import 'package:pace_tracker_app/widgets/clear_button.dart';
 
+import '../redux/form_update_actions.dart';
 import '../util/calculators.dart';
 import '../util/validators.dart';
 import 'calculator_field.dart';
@@ -23,22 +24,22 @@ class _TimeCalculatorState extends State<TimeCalculator> {
   final _distanceController = TextEditingController();
   final _paceController = TextEditingController();
 
-  bool _shouldCalcTime() {
-    final distValid = isDistanceValid(_distance);
-    final paceValid = isPaceValid(_pace);
+  bool _shouldCalcTime(String distance, String pace) {
+    final distValid = isDistanceValid(distance);
+    final paceValid = isPaceValid(pace);
     return distValid && paceValid;
   }
 
-  void _handlePaceChanged(String newTime) {
-    setState(() {
-      debugPrint('Pace changed');
-      _pace = newTime;
-      if (_shouldCalcTime()) {
-        debugPrint('Calculating Time');
-        _time = calculateTime(_pace, _distance).toString();
-      }
-    });
-  }
+  // void _handlePaceChanged(String newTime) {
+  //   setState(() {
+  //     debugPrint('Pace changed');
+  //     _pace = newTime;
+  //     if (_shouldCalcTime()) {
+  //       debugPrint('Calculating Time');
+  //       _time = calculateTime(_pace, _distance).toString();
+  //     }
+  //   });
+  // }
 
   void _clearAll() {
     _distanceController.clear();
@@ -69,25 +70,33 @@ class _TimeCalculatorState extends State<TimeCalculator> {
                 )),
             DistanceField(
               controller: _distanceController,
-              shouldUpdateTime: true,
+              shouldUpdateTime: _shouldCalcTime(
+                  viewModel.state.distance, viewModel.state.pace),
             ),
             CalculatorField(
                 label: 'Pace',
                 value: _pace,
                 hint: 'Format hh:mm:ss',
-                onChanged: _handlePaceChanged,
+                onChanged: viewModel.onPaceChange,
                 controller: _paceController),
-            ClearButton(clearFunction: _clearAll)
+            ClearButton(
+              controllersToClear: [_distanceController, _paceController],
+            )
           ]),
         );
       }),
-      converter: (store) => _TimeCalculatorViewModel(state: store.state),
+      converter: (store) => _TimeCalculatorViewModel(
+        state: store.state,
+        onPaceChange: (newState) => store
+            .dispatch(PaceUpdateAction(pace: newState, shouldCalcTime: true)),
+      ),
     );
   }
 }
 
 class _TimeCalculatorViewModel {
   final AppState state;
+  final void Function(String newState) onPaceChange;
 
-  _TimeCalculatorViewModel({required this.state});
+  _TimeCalculatorViewModel({required this.state, required this.onPaceChange});
 }

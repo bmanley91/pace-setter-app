@@ -12,6 +12,8 @@ AppState formUpdateReducer(AppState state, dynamic action) {
     return handlePaceUpdate(state, action);
   } else if (action is TimeUpdateAction) {
     return handleTimeUpdate(state, action);
+  } else if (action is FormClearAction) {
+    return handleClearForm(state);
   } else {
     return state;
   }
@@ -20,19 +22,22 @@ AppState formUpdateReducer(AppState state, dynamic action) {
 AppState handleDistanceUpdate(AppState state, DistanceUpdateAction action) {
   debugPrint(
       'Handing distance update for distance ${action.distance}, $action');
+  late AppState newState;
   if (action.shouldCalcPace) {
     debugPrint('Calculating pace $action');
-    return state.copyWith(
+    newState = state.copyWith(
         distance: action.distance,
         pace: calculatePace(state.time, action.distance));
   } else if (action.shouldCalcTime) {
     debugPrint('Calculating time $action');
-    return state.copyWith(
+    newState = state.copyWith(
         distance: action.distance,
         time: calculateTime(state.pace, action.distance));
   } else {
-    return state.copyWith(distance: action.distance);
+    newState = state.copyWith(distance: action.distance);
   }
+  debugPrint('New State $newState');
+  return newState;
 }
 
 AppState handlePaceUpdate(AppState state, PaceUpdateAction action) {
@@ -54,4 +59,9 @@ AppState handleTimeUpdate(AppState state, TimeUpdateAction action) {
   }
 
   return state.copyWith(time: action.time);
+}
+
+AppState handleClearForm(AppState state) {
+  debugPrint('Handing clear form action');
+  return state.copyWith(distance: '', time: '', pace: '');
 }

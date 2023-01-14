@@ -92,7 +92,7 @@ class _PaceCalculatorState extends State<PaceCalculator> {
                   onChanged: _handleTimeChanged,
                   controller: _timeController),
               ClearButton(
-                clearFunction: () => _clearAll(),
+                controllersToClear: [_distanceController, _timeController],
               )
             ],
           ));
