@@ -26,9 +26,23 @@ class AppState {
   static AppState fromJson(dynamic json) {
     debugPrint('Loaded json: $json');
     return json != null
-        ? AppState(metricUnitsEnabled: json["metricUnitsEnabled"])
+        ? AppState(
+            metricUnitsEnabled: json["metricUnitsEnabled"] ?? false,
+            distance: json["distance"] ?? '',
+            time: json["time"] ?? '',
+            pace: json["pace"] ?? '')
         : AppState();
   }
 
-  dynamic toJson() => {'metricUnitsEnabled': metricUnitsEnabled};
+  dynamic toJson() => {
+        'metricUnitsEnabled': metricUnitsEnabled,
+        'distance': distance,
+        'time': time,
+        'pace': pace
+      };
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
 }
