@@ -5,25 +5,21 @@ import 'package:pace_tracker_app/util/calculators.dart';
 import 'form_update_actions.dart';
 
 AppState formUpdateReducer(AppState state, dynamic action) {
+  debugPrint('Form update reducer received $action');
   if (action is DistanceUpdateAction) {
     return handleDistanceUpdate(state, action);
   } else if (action is PaceUpdateAction) {
-    debugPrint('Pace updated to ${action.pace}');
-
-    // TODO: Impl
-    return state;
+    return handlePaceUpdate(state, action);
   } else if (action is TimeUpdateAction) {
-    debugPrint('Time updated to ${action.time}');
-
-    // TODO: Impl
-    return state;
+    return handleTimeUpdate(state, action);
   } else {
     return state;
   }
 }
 
 AppState handleDistanceUpdate(AppState state, DistanceUpdateAction action) {
-  debugPrint('Distance updated to ${action.distance}');
+  debugPrint(
+      'Handing distance update for distance ${action.distance}, $action');
   if (action.shouldCalcPace) {
     debugPrint('Calculating pace $action');
     return state.copyWith(
@@ -37,4 +33,25 @@ AppState handleDistanceUpdate(AppState state, DistanceUpdateAction action) {
   } else {
     return state.copyWith(distance: action.distance);
   }
+}
+
+AppState handlePaceUpdate(AppState state, PaceUpdateAction action) {
+  debugPrint('Handing pace update for pace ${action.pace}, $action');
+  if (action.shouldCalcTime) {
+    return state.copyWith(
+        pace: action.pace, time: calculateTime(action.pace, state.distance));
+  }
+
+  return state.copyWith(pace: action.pace);
+}
+
+AppState handleTimeUpdate(AppState state, TimeUpdateAction action) {
+  debugPrint('Handing time update for time ${action.time}, $action');
+  if (action.shouldCalcPace) {
+    final newPace = calculatePace(action.time, state.distance);
+    debugPrint('Calculated new pace: $newPace');
+    return state.copyWith(time: action.time, pace: newPace);
+  }
+
+  return state.copyWith(time: action.time);
 }

@@ -82,8 +82,8 @@ class _PaceCalculatorState extends State<PaceCalculator> {
                     textAlign: TextAlign.center,
                   )),
               DistanceField(
-                onChanged: _handleDistanceChanged,
                 controller: _distanceController,
+                shouldUpdatePace: true,
               ),
               CalculatorField(
                   label: 'Time',

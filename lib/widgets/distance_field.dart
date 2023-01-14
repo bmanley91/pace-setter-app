@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pace_tracker_app/redux/app_state.dart';
+import 'package:pace_tracker_app/redux/form_update_actions.dart';
 import 'package:pace_tracker_app/util/mappers.dart';
 
 class DistanceField extends StatefulWidget {
-  final ValueChanged<String> onChanged;
   final TextEditingController controller;
+  final bool shouldUpdatePace;
+  final bool shouldUpdateTime;
 
   const DistanceField(
-      {super.key, required this.onChanged, required this.controller});
+      {super.key,
+      required this.controller,
+      this.shouldUpdatePace = false,
+      this.shouldUpdateTime = false});
 
   @override
   State<StatefulWidget> createState() => _DistanceFieldState();
@@ -17,16 +22,22 @@ class DistanceField extends StatefulWidget {
 class _DistanceFieldState extends State<DistanceField> {
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<AppState, String>(
-        converter: (store) =>
-            mapMetricStoreStateToString(store.state.metricUnitsEnabled),
-        builder: (context, unit) {
+    return StoreConnector<AppState, _DistanceFieldViewModel>(
+        converter: (store) => _DistanceFieldViewModel(
+              state: store.state,
+              unit: mapMetricStoreStateToString(store.state.metricUnitsEnabled),
+              onChange: (newState) => store.dispatch(DistanceUpdateAction(
+                  distance: newState,
+                  shouldCalcPace: widget.shouldUpdatePace,
+                  shouldCalcTime: widget.shouldUpdateTime)),
+            ),
+        builder: (BuildContext context, _DistanceFieldViewModel viewModel) {
           return Padding(
               padding: const EdgeInsets.only(top: 12),
               child: TextField(
-                onChanged: widget.onChanged,
+                onChanged: viewModel.onChange,
                 decoration: InputDecoration(
-                  hintText: 'Distance in $unit',
+                  hintText: 'Distance in ${viewModel.unit}',
                   labelText: 'Distance',
                 ),
                 keyboardType:
@@ -35,4 +46,13 @@ class _DistanceFieldState extends State<DistanceField> {
               ));
         });
   }
+}
+
+class _DistanceFieldViewModel {
+  final AppState state;
+  final String unit;
+  final void Function(String newState) onChange;
+
+  _DistanceFieldViewModel(
+      {required this.state, required this.unit, required this.onChange});
 }

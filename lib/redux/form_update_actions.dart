@@ -3,6 +3,11 @@ abstract class FormUpdateAction {
   bool shouldCalcTime;
 
   FormUpdateAction({this.shouldCalcPace = false, this.shouldCalcTime = false});
+
+  @override
+  String toString() {
+    return 'FormUpdateAction {shouldCalcPace: $shouldCalcPace, shouldCalcTime: $shouldCalcTime}';
+  }
 }
 
 class DistanceUpdateAction extends FormUpdateAction {
@@ -15,13 +20,11 @@ class DistanceUpdateAction extends FormUpdateAction {
 class PaceUpdateAction extends FormUpdateAction {
   String pace;
 
-  PaceUpdateAction(
-      {required this.pace, super.shouldCalcPace, super.shouldCalcTime});
+  PaceUpdateAction({required this.pace, super.shouldCalcTime});
 }
 
 class TimeUpdateAction extends FormUpdateAction {
   String time;
 
-  TimeUpdateAction(
-      {required this.time, super.shouldCalcPace, super.shouldCalcTime});
+  TimeUpdateAction({required this.time, super.shouldCalcPace});
 }
