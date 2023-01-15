@@ -11,17 +11,17 @@ void main() {
       () {
     const initialTime = '1:23';
     const initialPace = '3:21';
-    const initialDistance = '11';
-    const updatedDistance = '22';
+    const initialDistance = 11.0;
+    const updatedDistance = 22.0;
     Store<AppState> testStore = Store(
       combineReducers({metricSettingReducer, formUpdateReducer}),
       initialState: AppState(
-          distance: initialDistance, time: initialTime, pace: initialPace),
+          distanceNum: initialDistance, time: initialTime, pace: initialPace),
     );
 
     testStore.dispatch(DistanceUpdateAction(distance: updatedDistance));
 
-    expect(testStore.state.distance, updatedDistance);
+    expect(testStore.state.distanceNum, updatedDistance);
     expect(testStore.state.time, initialTime);
     expect(testStore.state.pace, initialPace);
   });
@@ -30,19 +30,19 @@ void main() {
     const initialTime = '23:03.0';
     const initialPace = '7:26.0';
     const updatedPace = '6:35.14';
-    const initialDistance = '3.1';
-    const updatedDistance = '3.5';
+    const initialDistance = 3.1;
+    const updatedDistance = 3.5;
 
     Store<AppState> testStore = Store(
       combineReducers({metricSettingReducer, formUpdateReducer}),
       initialState: AppState(
-          distance: initialDistance, time: initialTime, pace: initialPace),
+          distanceNum: initialDistance, time: initialTime, pace: initialPace),
     );
 
     testStore.dispatch(
         DistanceUpdateAction(distance: updatedDistance, shouldCalcPace: true));
 
-    expect(testStore.state.distance, updatedDistance);
+    expect(testStore.state.distanceNum, updatedDistance);
     expect(testStore.state.time, initialTime);
     expect(testStore.state.pace, updatedPace);
   });
@@ -51,19 +51,19 @@ void main() {
     const initialTime = '24:48.0';
     const updatedTime = '35:00.0';
     const initialPace = '7:00.0';
-    const initialDistance = '3.1';
-    const updatedDistance = '5';
+    const initialDistance = 3.1;
+    const updatedDistance = 5.0;
 
     Store<AppState> testStore = Store(
       combineReducers({metricSettingReducer, formUpdateReducer}),
       initialState: AppState(
-          distance: initialDistance, time: initialTime, pace: initialPace),
+          distanceNum: initialDistance, time: initialTime, pace: initialPace),
     );
 
     testStore.dispatch(
         DistanceUpdateAction(distance: updatedDistance, shouldCalcTime: true));
 
-    expect(testStore.state.distance, updatedDistance);
+    expect(testStore.state.distanceNum, updatedDistance);
     expect(testStore.state.time, updatedTime);
     expect(testStore.state.pace, initialPace);
   });

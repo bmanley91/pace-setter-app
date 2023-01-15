@@ -11,7 +11,7 @@ abstract class FormUpdateAction {
 }
 
 class DistanceUpdateAction extends FormUpdateAction {
-  String distance;
+  double distance;
 
   DistanceUpdateAction(
       {required this.distance, super.shouldCalcPace, super.shouldCalcTime});

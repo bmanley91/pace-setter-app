@@ -12,17 +12,17 @@ void main() {
     const initialTime = '31:00.0';
     const updatedTime = '45:00.0';
     const initialPace = '10:00.0';
-    const distance = '3.1';
+    const distance = 3.1;
 
     Store<AppState> testStore = Store(
       combineReducers({metricSettingReducer, formUpdateReducer}),
       initialState:
-          AppState(distance: distance, time: initialTime, pace: initialPace),
+          AppState(distanceNum: distance, time: initialTime, pace: initialPace),
     );
 
     testStore.dispatch(TimeUpdateAction(time: updatedTime));
 
-    expect(testStore.state.distance, distance);
+    expect(testStore.state.distanceNum, distance);
     expect(testStore.state.time, updatedTime);
     expect(testStore.state.pace, initialPace);
   });
@@ -32,18 +32,18 @@ void main() {
     const updatedTime = '45:00.0';
     const initialPace = '10:00.0';
     const updatedPace = '14:30.97';
-    const distance = '3.1';
+    const distance = 3.1;
 
     Store<AppState> testStore = Store(
       combineReducers({metricSettingReducer, formUpdateReducer}),
       initialState:
-          AppState(distance: distance, time: initialTime, pace: initialPace),
+          AppState(distanceNum: distance, time: initialTime, pace: initialPace),
     );
 
     testStore
         .dispatch(TimeUpdateAction(time: updatedTime, shouldCalcPace: true));
 
-    expect(testStore.state.distance, distance);
+    expect(testStore.state.distanceNum, distance);
     expect(testStore.state.time, updatedTime);
     expect(testStore.state.pace, updatedPace);
   });

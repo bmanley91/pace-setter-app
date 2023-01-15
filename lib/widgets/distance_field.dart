@@ -24,12 +24,17 @@ class _DistanceFieldState extends State<DistanceField> {
   Widget build(BuildContext context) {
     return StoreConnector<AppState, _DistanceFieldViewModel>(
         converter: (store) => _DistanceFieldViewModel(
-              distance: store.state.distance,
+              distanceString: store.state.distanceNum.toString(),
               unit: mapMetricStoreStateToString(store.state.metricUnitsEnabled),
-              onChange: (newDistance) => store.dispatch(DistanceUpdateAction(
-                  distance: newDistance,
-                  shouldCalcPace: widget.shouldUpdatePace,
-                  shouldCalcTime: widget.shouldUpdateTime)),
+              onChange: (newDistance) {
+                final distanceNumber = double.tryParse(newDistance);
+                if (distanceNumber != null) {
+                  store.dispatch(DistanceUpdateAction(
+                      distance: distanceNumber,
+                      shouldCalcPace: widget.shouldUpdatePace,
+                      shouldCalcTime: widget.shouldUpdateTime));
+                }
+              },
             ),
         builder: (BuildContext context, _DistanceFieldViewModel viewModel) {
           return Padding(
@@ -50,10 +55,12 @@ class _DistanceFieldState extends State<DistanceField> {
 
 class _DistanceFieldViewModel {
   // final AppState state;
-  final String distance;
+  final String distanceString;
   final String unit;
   final void Function(String newState) onChange;
 
   _DistanceFieldViewModel(
-      {required this.distance, required this.unit, required this.onChange});
+      {required this.distanceString,
+      required this.unit,
+      required this.onChange});
 }

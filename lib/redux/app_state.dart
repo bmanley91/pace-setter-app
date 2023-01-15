@@ -2,7 +2,6 @@ import 'package:flutter/widgets.dart';
 
 class AppState {
   final bool metricUnitsEnabled;
-  final String distance;
   final double distanceNum;
   final String time;
   final double timeSeconds;
@@ -10,8 +9,7 @@ class AppState {
   final double paceSeconds;
 
   AppState(
-      {this.distance = '',
-      this.distanceNum = 0,
+      {this.distanceNum = 0,
       this.time = '',
       this.pace = '',
       this.timeSeconds = 0,
@@ -20,7 +18,6 @@ class AppState {
 
   AppState copyWith(
           {bool? metricUnitsEnabled,
-          String? distance,
           double? distanceNum,
           String? time,
           double? timeSeconds,
@@ -28,7 +25,6 @@ class AppState {
           double? paceSeconds}) =>
       AppState(
           metricUnitsEnabled: metricUnitsEnabled ?? this.metricUnitsEnabled,
-          distance: distance ?? this.distance,
           distanceNum: distanceNum ?? this.distanceNum,
           time: time ?? this.time,
           timeSeconds: timeSeconds ?? this.timeSeconds,
@@ -40,7 +36,6 @@ class AppState {
     return json != null
         ? AppState(
             metricUnitsEnabled: json['metricUnitsEnabled'] ?? false,
-            distance: json['distance'] ?? '',
             distanceNum: json['distanceNum'] ?? 0,
             time: json['time'] ?? '',
             timeSeconds: json['timeSeconds'] ?? 0,
@@ -51,7 +46,6 @@ class AppState {
 
   dynamic toJson() => {
         'metricUnitsEnabled': metricUnitsEnabled,
-        'distance': distance,
         'time': time,
         'timeSeconds': timeSeconds,
         'pace': pace,

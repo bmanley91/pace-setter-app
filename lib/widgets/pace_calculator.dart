@@ -55,7 +55,7 @@ class _PaceCalculatorState extends State<PaceCalculator> {
         },
         converter: (store) => _PaceCalculatorViewModel(
               pace: store.state.pace,
-              distance: store.state.distance,
+              distanceString: store.state.distanceNum.toString(),
               time: store.state.time,
               unitShortString: mapMetricStoreStateToShortString(
                   store.state.metricUnitsEnabled),
@@ -69,7 +69,7 @@ class _PaceCalculatorState extends State<PaceCalculator> {
 
 class _PaceCalculatorViewModel {
   final String pace;
-  final String distance;
+  final String distanceString;
   final String time;
   final String unitString;
   final String unitShortString;
@@ -77,7 +77,7 @@ class _PaceCalculatorViewModel {
 
   _PaceCalculatorViewModel(
       {required this.pace,
-      required this.distance,
+      required this.distanceString,
       required this.time,
       required this.unitString,
       required this.unitShortString,

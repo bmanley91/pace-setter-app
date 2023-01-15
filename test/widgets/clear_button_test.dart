@@ -20,7 +20,6 @@ void main() {
     store = Store<AppState>(
         combineReducers({metricSettingReducer, formUpdateReducer}),
         initialState: AppState(
-            distance: '123',
             distanceNum: 123.0,
             time: '5:43:21',
             timeSeconds: 555,
@@ -37,7 +36,6 @@ void main() {
 
     await tester.tap(find.byWidget(clearButton));
 
-    expect(store.state.distance, '');
     expect(store.state.distanceNum, 0);
     expect(store.state.time, '');
     expect(store.state.timeSeconds, 0);

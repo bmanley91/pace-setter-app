@@ -24,26 +24,22 @@ AppState handleDistanceUpdate(AppState state, DistanceUpdateAction action) {
   debugPrint(
       'Handling distance update for distance ${action.distance}, $action');
   late AppState newState;
-  final distanceNum = double.parse(action.distance);
 
   if (_willUpdatePace(action.distance, state.time, action.shouldCalcPace)) {
     debugPrint('Calculating pace $action');
     newState = state.copyWith(
-        distance: action.distance,
-        distanceNum: distanceNum,
+        distanceNum: action.distance,
         pace: calculatePace(state.time, action.distance),
-        paceSeconds: calculatePaceSeconds(state.timeSeconds, distanceNum));
+        paceSeconds: calculatePaceSeconds(state.timeSeconds, action.distance));
   } else if (_willUpdateTime(
       action.distance, state.pace, action.shouldCalcTime)) {
     debugPrint('Calculating time $action');
     newState = state.copyWith(
-        distance: action.distance,
-        distanceNum: distanceNum,
+        distanceNum: action.distance,
         time: calculateTime(state.pace, action.distance),
-        timeSeconds: calculateTimeSeconds(state.paceSeconds, distanceNum));
+        timeSeconds: calculateTimeSeconds(state.paceSeconds, action.distance));
   } else {
-    newState =
-        state.copyWith(distance: action.distance, distanceNum: distanceNum);
+    newState = state.copyWith(distanceNum: action.distance);
   }
   debugPrint('New State $newState');
   return newState;
@@ -52,13 +48,12 @@ AppState handleDistanceUpdate(AppState state, DistanceUpdateAction action) {
 AppState handlePaceUpdate(AppState state, PaceUpdateAction action) {
   debugPrint('Handling pace update for pace ${action.pace}, $action');
   final paceSeconds = timeStringToSeconds(action.pace);
-  if (_willUpdateTime(state.distance, action.pace, action.shouldCalcTime)) {
+  if (_willUpdateTime(state.distanceNum, action.pace, action.shouldCalcTime)) {
     return state.copyWith(
         pace: action.pace,
         paceSeconds: paceSeconds,
-        time: calculateTime(action.pace, state.distance),
-        timeSeconds:
-            calculateTimeSeconds(paceSeconds, double.parse(state.distance)));
+        time: calculateTime(action.pace, state.distanceNum),
+        timeSeconds: calculateTimeSeconds(paceSeconds, state.distanceNum));
   }
 
   return state.copyWith(pace: action.pace, paceSeconds: paceSeconds);
@@ -67,15 +62,14 @@ AppState handlePaceUpdate(AppState state, PaceUpdateAction action) {
 AppState handleTimeUpdate(AppState state, TimeUpdateAction action) {
   debugPrint('Handling time update for time ${action.time}, $action');
   final timeSeconds = timeStringToSeconds(action.time);
-  if (_willUpdatePace(state.distance, action.time, action.shouldCalcPace)) {
-    final newPace = calculatePace(action.time, state.distance);
+  if (_willUpdatePace(state.distanceNum, action.time, action.shouldCalcPace)) {
+    final newPace = calculatePace(action.time, state.distanceNum);
     debugPrint('Calculated new pace: $newPace');
     return state.copyWith(
         time: action.time,
         timeSeconds: timeSeconds,
         pace: newPace,
-        paceSeconds:
-            calculatePaceSeconds(timeSeconds, double.parse(state.distance)));
+        paceSeconds: calculatePaceSeconds(timeSeconds, state.distanceNum));
   }
 
   return state.copyWith(time: action.time, timeSeconds: timeSeconds);
@@ -84,16 +78,11 @@ AppState handleTimeUpdate(AppState state, TimeUpdateAction action) {
 AppState handleClearForm(AppState state) {
   debugPrint('Handling clear form action');
   return state.copyWith(
-      distance: '',
-      distanceNum: 0,
-      time: '',
-      timeSeconds: 0,
-      pace: '',
-      paceSeconds: 0);
+      distanceNum: 0, time: '', timeSeconds: 0, pace: '', paceSeconds: 0);
 }
 
-bool _willUpdatePace(String distance, String time, bool shouldCalc) {
-  final distanceCheck = isDistanceValid(distance);
+bool _willUpdatePace(double distance, String time, bool shouldCalc) {
+  final distanceCheck = distance > 0;
   final timeCheck = isTimeValid(time);
   debugPrint(
       'Will update pace? distanceCheck: $distanceCheck, timeCheck: $timeCheck, shouldCalc? $shouldCalc');
@@ -101,8 +90,9 @@ bool _willUpdatePace(String distance, String time, bool shouldCalc) {
   return distanceCheck && timeCheck && shouldCalc;
 }
 
-bool _willUpdateTime(String distance, String pace, bool shouldCalc) {
-  final distanceCheck = isDistanceValid(distance);
+bool _willUpdateTime(double distance, String pace, bool shouldCalc) {
+  // final distanceCheck = isDistanceValid(distance);
+  final distanceCheck = distance > 0;
   final paceCheck = isPaceValid(pace);
 
   debugPrint(
