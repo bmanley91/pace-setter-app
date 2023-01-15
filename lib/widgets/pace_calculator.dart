@@ -6,7 +6,6 @@ import 'package:pace_tracker_app/util/mappers.dart';
 import 'package:pace_tracker_app/widgets/calculator_field.dart';
 import 'package:pace_tracker_app/widgets/clear_button.dart';
 
-import '../util/validators.dart';
 import 'distance_field.dart';
 
 class PaceCalculator extends StatefulWidget {
@@ -19,13 +18,6 @@ class PaceCalculator extends StatefulWidget {
 class _PaceCalculatorState extends State<PaceCalculator> {
   final _distanceController = TextEditingController();
   final _timeController = TextEditingController();
-
-  // bool _shouldCalcPace(String distance, String time) {
-  //   final distValid = isDistanceValid(distance);
-  //   final timeValid = isTimeValid(time);
-  //   debugPrint('distValid? $distValid, timeValid? $timeValid');
-  //   return distValid && timeValid;
-  // }
 
   @override
   Widget build(BuildContext context) {

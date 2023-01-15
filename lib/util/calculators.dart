@@ -13,3 +13,9 @@ String calculatePace(String time, String distance) {
   return secondsToTimeString(
       timeStringToSeconds(time) / double.parse(distance));
 }
+
+double calculateTimeSeconds(double paceSeconds, double distanceNum) =>
+    paceSeconds * distanceNum;
+
+double calculatePaceSeconds(double timeSeconds, double distanceNum) =>
+    distanceNum / timeSeconds;

@@ -25,14 +25,15 @@ class _CalculatorFieldState extends State<CalculatorField> {
     return Padding(
         padding: const EdgeInsets.only(top: 12),
         child: TextField(
-            onChanged: widget.onChanged,
-            decoration: InputDecoration(
-              hintText: widget.hint,
-              labelText: widget.label,
-            ),
-            keyboardType: TextInputType.number,
-            inputFormatters: [TimeTextInputFormatter()],
-            controller: widget.controller));
+          onChanged: widget.onChanged,
+          decoration: InputDecoration(
+            hintText: widget.hint,
+            labelText: widget.label,
+          ),
+          keyboardType: TextInputType.number,
+          inputFormatters: [TimeTextInputFormatter()],
+          controller: widget.controller,
+        ));
   }
 }
 
