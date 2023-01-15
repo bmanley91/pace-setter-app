@@ -83,7 +83,13 @@ AppState handleTimeUpdate(AppState state, TimeUpdateAction action) {
 
 AppState handleClearForm(AppState state) {
   debugPrint('Handling clear form action');
-  return state.copyWith(distance: '', time: '', pace: '');
+  return state.copyWith(
+      distance: '',
+      distanceNum: 0,
+      time: '',
+      timeSeconds: 0,
+      pace: '',
+      paceSeconds: 0);
 }
 
 bool _willUpdatePace(String distance, String time, bool shouldCalc) {
