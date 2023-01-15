@@ -4,7 +4,6 @@ import 'package:pace_tracker_app/redux/app_state.dart';
 import 'package:pace_tracker_app/widgets/clear_button.dart';
 
 import '../redux/form_update_actions.dart';
-import '../util/validators.dart';
 import 'calculator_field.dart';
 import 'distance_field.dart';
 
