@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pace_tracker_app/redux/app_state.dart';
+import 'package:pace_tracker_app/util/validators.dart';
 import 'package:pace_tracker_app/widgets/clear_button.dart';
 
 import '../redux/form_update_actions.dart';
+import '../util/converters.dart';
 import 'calculator_field.dart';
 import 'distance_field.dart';
 
@@ -27,8 +29,8 @@ class _TimeCalculatorState extends State<TimeCalculator> {
             Padding(
                 padding: const EdgeInsets.only(bottom: 12),
                 child: Text(
-                  viewModel.state.time.isNotEmpty
-                      ? 'Total Time: ${viewModel.state.time}'
+                  viewModel.timeString.isNotEmpty
+                      ? 'Total Time: ${viewModel.timeString}'
                       : 'Enter distance and pace to calculate total time',
                   style: const TextStyle(
                     fontSize: 24,
@@ -51,17 +53,22 @@ class _TimeCalculatorState extends State<TimeCalculator> {
         );
       }),
       converter: (store) => _TimeCalculatorViewModel(
-        state: store.state,
-        onPaceChange: (newState) => store
-            .dispatch(PaceUpdateAction(pace: newState, shouldCalcTime: true)),
+        timeString: secondsToTimeString(store.state.timeSeconds),
+        onPaceChange: (newPace) {
+          if (isPaceValid(newPace)) {
+            store.dispatch(PaceUpdateAction(
+                pace: timeStringToSeconds(newPace), shouldCalcTime: true));
+          }
+        },
       ),
     );
   }
 }
 
 class _TimeCalculatorViewModel {
-  final AppState state;
+  final String timeString;
   final void Function(String newState) onPaceChange;
 
-  _TimeCalculatorViewModel({required this.state, required this.onPaceChange});
+  _TimeCalculatorViewModel(
+      {required this.timeString, required this.onPaceChange});
 }

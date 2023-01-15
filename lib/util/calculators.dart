@@ -16,4 +16,4 @@ double calculateTimeSeconds(double paceSeconds, double distanceNum) =>
     paceSeconds * distanceNum;
 
 double calculatePaceSeconds(double timeSeconds, double distanceNum) =>
-    distanceNum / timeSeconds;
+    timeSeconds / distanceNum;

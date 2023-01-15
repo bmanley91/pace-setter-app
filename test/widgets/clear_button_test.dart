@@ -19,12 +19,8 @@ void main() {
     );
     store = Store<AppState>(
         combineReducers({metricSettingReducer, formUpdateReducer}),
-        initialState: AppState(
-            distanceNum: 123.0,
-            time: '5:43:21',
-            timeSeconds: 555,
-            pace: '43:12',
-            paceSeconds: 999));
+        initialState:
+            AppState(distanceNum: 123.0, timeSeconds: 555, paceSeconds: 999));
     testApp = StoreProvider<AppState>(
         store: store, child: MaterialApp(home: Scaffold(body: clearButton)));
   });
@@ -37,9 +33,7 @@ void main() {
     await tester.tap(find.byWidget(clearButton));
 
     expect(store.state.distanceNum, 0);
-    expect(store.state.time, '');
     expect(store.state.timeSeconds, 0);
-    expect(store.state.pace, '');
     expect(store.state.paceSeconds, 0);
 
     expect(controller.text, '');
