@@ -7,6 +7,7 @@ import 'package:pace_tracker_app/util/mappers.dart';
 import 'package:pace_tracker_app/widgets/calculator_field.dart';
 import 'package:pace_tracker_app/widgets/clear_button.dart';
 
+import '../util/keys.dart';
 import '../util/validators.dart';
 import 'distance_field.dart';
 
@@ -32,6 +33,7 @@ class _PaceCalculatorState extends State<PaceCalculator> {
               Padding(
                   padding: const EdgeInsets.only(bottom: 12),
                   child: Text(
+                    key: paceCalculatorMessageKey,
                     viewModel.paceString.isNotEmpty
                         ? 'Pace: ${viewModel.paceString} per ${viewModel.unitShortString}'
                         : 'Enter distance in ${viewModel.unitString} and total time to calculate pace',
