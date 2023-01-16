@@ -4,12 +4,12 @@ import 'package:pace_tracker_app/redux/app_state.dart';
 import 'package:pace_tracker_app/redux/form_update_actions.dart';
 import 'package:pace_tracker_app/util/converters.dart';
 import 'package:pace_tracker_app/util/mappers.dart';
-import 'package:pace_tracker_app/widgets/calculator_field.dart';
-import 'package:pace_tracker_app/widgets/clear_button.dart';
+import 'package:pace_tracker_app/widgets/form/calculator_field.dart';
+import 'package:pace_tracker_app/widgets/form/clear_button.dart';
 
-import '../util/keys.dart';
-import '../util/validators.dart';
-import 'distance_field.dart';
+import 'package:pace_tracker_app/util/keys.dart';
+import 'package:pace_tracker_app/util/validators.dart';
+import 'package:pace_tracker_app/widgets/form/distance_field.dart';
 
 class PaceCalculator extends StatefulWidget {
   const PaceCalculator({super.key});

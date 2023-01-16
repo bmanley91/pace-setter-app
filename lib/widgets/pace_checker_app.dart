@@ -3,7 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pace_tracker_app/redux/app_state.dart';
 import 'package:redux/redux.dart';
 
-import 'home_page.dart';
+import 'pages/home_page.dart';
 
 class PaceCheckerApp extends StatelessWidget {
   final Store<AppState> appStore;

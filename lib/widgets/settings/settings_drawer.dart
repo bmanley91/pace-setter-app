@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pace_tracker_app/util/constants.dart';
-import 'package:pace_tracker_app/widgets/shill.dart';
-import 'package:pace_tracker_app/widgets/unit_switcher.dart';
+import 'package:pace_tracker_app/widgets/settings/shill.dart';
+import 'package:pace_tracker_app/widgets/settings/unit_switcher.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SettingsDrawer extends StatefulWidget {

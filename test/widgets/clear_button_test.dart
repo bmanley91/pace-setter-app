@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:pace_tracker_app/redux/app_state.dart';
 import 'package:pace_tracker_app/redux/form_update_reducer.dart';
 import 'package:pace_tracker_app/redux/metric_setting_reducer.dart';
-import 'package:pace_tracker_app/widgets/clear_button.dart';
+import 'package:pace_tracker_app/widgets/form/clear_button.dart';
 import 'package:redux/redux.dart';
 
 void main() {
