@@ -6,7 +6,6 @@ import 'package:pace_tracker_app/util/converters.dart';
 import 'package:pace_tracker_app/util/mappers.dart';
 import 'package:pace_tracker_app/widgets/form/calculator_field.dart';
 import 'package:pace_tracker_app/widgets/form/clear_button.dart';
-
 import 'package:pace_tracker_app/util/keys.dart';
 import 'package:pace_tracker_app/util/validators.dart';
 import 'package:pace_tracker_app/widgets/form/distance_field.dart';
