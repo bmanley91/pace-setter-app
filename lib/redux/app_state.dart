@@ -36,6 +36,7 @@ class AppState {
 
   dynamic toJson() => {
         'metricUnitsEnabled': metricUnitsEnabled,
+        'distanceNum': distanceNum,
         'timeSeconds': timeSeconds,
         'paceSeconds': paceSeconds
       };
