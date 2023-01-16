@@ -26,9 +26,12 @@ void main() {
         store: store, child: MaterialApp(home: Scaffold(body: paceCalculator)));
     await tester.pumpWidget(testApp);
 
-    expect(
-        find.text('Enter distance in miles and total time to calculate pace'),
-        findsOneWidget);
+    final messageElements = find.byKey(paceCalculatorMessageKey).evaluate();
+    expect(messageElements.length, 1);
+
+    final message = messageElements.first.widget as Text;
+    expect(message.data,
+        'Enter distance in miles and total time to calculate pace');
   });
 
   testWidgets(
@@ -36,15 +39,17 @@ void main() {
       (WidgetTester tester) async {
     store = Store<AppState>(
         combineReducers({metricSettingReducer, formUpdateReducer}),
-        initialState: AppState());
+        initialState: AppState(metricUnitsEnabled: true));
     testApp = StoreProvider<AppState>(
         store: store, child: MaterialApp(home: Scaffold(body: paceCalculator)));
     await tester.pumpWidget(testApp);
 
-    expect(
-        find.text(
-            'Enter distance in kilometers and total time to calculate pace'),
-        findsOneWidget);
+    final messageElements = find.byKey(paceCalculatorMessageKey).evaluate();
+    expect(messageElements.length, 1);
+
+    final message = messageElements.first.widget as Text;
+    expect(message.data,
+        'Enter distance in kilometers and total time to calculate pace');
   });
 
   testWidgets('Pace Calculator loads correctly fields are set',

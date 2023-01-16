@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pace_tracker_app/redux/app_state.dart';
+import 'package:pace_tracker_app/util/keys.dart';
 import 'package:pace_tracker_app/util/validators.dart';
 import 'package:pace_tracker_app/widgets/clear_button.dart';
 
@@ -29,6 +30,7 @@ class _TimeCalculatorState extends State<TimeCalculator> {
             Padding(
                 padding: const EdgeInsets.only(bottom: 12),
                 child: Text(
+                  key: timeCalculatorMessageKey,
                   viewModel.timeString.isNotEmpty
                       ? 'Total Time: ${viewModel.timeString}'
                       : 'Enter distance and pace to calculate total time',
