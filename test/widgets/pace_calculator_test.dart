@@ -5,7 +5,7 @@ import 'package:pace_tracker_app/redux/app_state.dart';
 import 'package:pace_tracker_app/redux/form_update_reducer.dart';
 import 'package:pace_tracker_app/redux/metric_setting_reducer.dart';
 import 'package:pace_tracker_app/util/keys.dart';
-import 'package:pace_tracker_app/widgets/pace_calculator.dart';
+import 'package:pace_tracker_app/widgets/pages/pace_calculator.dart';
 import 'package:redux/redux.dart';
 
 void main() {

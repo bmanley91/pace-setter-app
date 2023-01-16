@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pace_tracker_app/redux/form_update_actions.dart';
 
-import '../redux/app_state.dart';
+import 'package:pace_tracker_app/redux/app_state.dart';
 
 class ClearButton extends StatelessWidget {
   final List<TextEditingController> controllersToClear;

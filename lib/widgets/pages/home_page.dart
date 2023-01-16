@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pace_tracker_app/widgets/pace_calculator.dart';
-import 'package:pace_tracker_app/widgets/settings_drawer.dart';
-import 'package:pace_tracker_app/widgets/time_calculator.dart';
+import 'package:pace_tracker_app/widgets/pages/pace_calculator.dart';
+import 'package:pace_tracker_app/widgets/settings/settings_drawer.dart';
+import 'package:pace_tracker_app/widgets/pages/time_calculator.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

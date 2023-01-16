@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:pace_tracker_app/redux/app_state.dart';
 import 'package:pace_tracker_app/redux/metric_setting_reducer.dart';
-import 'package:pace_tracker_app/widgets/unit_switcher.dart';
+import 'package:pace_tracker_app/widgets/settings/unit_switcher.dart';
 import 'package:redux/redux.dart';
 
 class MockStore extends Mock implements Store<AppState> {}
