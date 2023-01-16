@@ -11,20 +11,20 @@ abstract class FormUpdateAction {
 }
 
 class DistanceUpdateAction extends FormUpdateAction {
-  String distance;
+  double distance;
 
   DistanceUpdateAction(
       {required this.distance, super.shouldCalcPace, super.shouldCalcTime});
 }
 
 class PaceUpdateAction extends FormUpdateAction {
-  String pace;
+  double pace;
 
   PaceUpdateAction({required this.pace, super.shouldCalcTime});
 }
 
 class TimeUpdateAction extends FormUpdateAction {
-  String time;
+  double time;
 
   TimeUpdateAction({required this.time, super.shouldCalcPace});
 }

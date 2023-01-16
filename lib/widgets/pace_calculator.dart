@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pace_tracker_app/redux/app_state.dart';
 import 'package:pace_tracker_app/redux/form_update_actions.dart';
+import 'package:pace_tracker_app/util/converters.dart';
 import 'package:pace_tracker_app/util/mappers.dart';
 import 'package:pace_tracker_app/widgets/calculator_field.dart';
 import 'package:pace_tracker_app/widgets/clear_button.dart';
 
+import '../util/keys.dart';
+import '../util/validators.dart';
 import 'distance_field.dart';
 
 class PaceCalculator extends StatefulWidget {
@@ -30,8 +33,9 @@ class _PaceCalculatorState extends State<PaceCalculator> {
               Padding(
                   padding: const EdgeInsets.only(bottom: 12),
                   child: Text(
-                    viewModel.pace.isNotEmpty
-                        ? 'Pace: ${viewModel.pace} per ${viewModel.unitShortString}'
+                    key: paceCalculatorMessageKey,
+                    viewModel.paceString.isNotEmpty
+                        ? 'Pace: ${viewModel.paceString} per ${viewModel.unitShortString}'
                         : 'Enter distance in ${viewModel.unitString} and total time to calculate pace',
                     style: const TextStyle(
                       fontSize: 24,
@@ -54,31 +58,36 @@ class _PaceCalculatorState extends State<PaceCalculator> {
           ));
         },
         converter: (store) => _PaceCalculatorViewModel(
-              pace: store.state.pace,
-              distance: store.state.distance,
-              time: store.state.time,
+              paceString: secondsToTimeString(store.state.paceSeconds),
+              distanceString: store.state.distanceNum.toString(),
+              timeString: secondsToTimeString(store.state.timeSeconds),
               unitShortString: mapMetricStoreStateToShortString(
                   store.state.metricUnitsEnabled),
               unitString:
                   mapMetricStoreStateToString(store.state.metricUnitsEnabled),
-              onTimeChange: (newTime) => store.dispatch(
-                  TimeUpdateAction(time: newTime, shouldCalcPace: true)),
+              onTimeChange: (newTime) {
+                if (isTimeValid(newTime)) {
+                  store.dispatch(TimeUpdateAction(
+                      time: timeStringToSeconds(newTime),
+                      shouldCalcPace: true));
+                }
+              },
             ));
   }
 }
 
 class _PaceCalculatorViewModel {
-  final String pace;
-  final String distance;
-  final String time;
+  final String paceString;
+  final String distanceString;
+  final String timeString;
   final String unitString;
   final String unitShortString;
   final void Function(String newTime) onTimeChange;
 
   _PaceCalculatorViewModel(
-      {required this.pace,
-      required this.distance,
-      required this.time,
+      {required this.paceString,
+      required this.distanceString,
+      required this.timeString,
       required this.unitString,
       required this.unitShortString,
       required this.onTimeChange});

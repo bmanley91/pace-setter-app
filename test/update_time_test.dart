@@ -9,42 +9,46 @@ void main() {
   test(
       'Updating time without flagging pace recalculation does not update any other values',
       () {
-    const initialTime = '31:00.0';
-    const updatedTime = '45:00.0';
-    const initialPace = '10:00.0';
-    const distance = '3.1';
+    const initialTime = 3100.0;
+    const updatedTime = 4500.0;
+    const initialPace = 1000.0;
+    const distance = 3.1;
 
     Store<AppState> testStore = Store(
       combineReducers({metricSettingReducer, formUpdateReducer}),
-      initialState:
-          AppState(distance: distance, time: initialTime, pace: initialPace),
+      initialState: AppState(
+          distanceNum: distance,
+          timeSeconds: initialTime,
+          paceSeconds: initialPace),
     );
 
     testStore.dispatch(TimeUpdateAction(time: updatedTime));
 
-    expect(testStore.state.distance, distance);
-    expect(testStore.state.time, updatedTime);
-    expect(testStore.state.pace, initialPace);
+    expect(testStore.state.distanceNum, distance);
+    expect(testStore.state.timeSeconds, updatedTime);
+    expect(testStore.state.paceSeconds, initialPace);
   });
 
   test('Updating time and flagging pace recalculation updates pace', () {
-    const initialTime = '31:00.0';
-    const updatedTime = '45:00.0';
-    const initialPace = '10:00.0';
-    const updatedPace = '14:30.97';
-    const distance = '3.1';
+    const initialTime = 100.0;
+    const updatedTime = 200.0;
+    const distance = 5.0;
+    const initialPace = 20.0;
+    const expectedCalculatedPace = 40.0;
 
     Store<AppState> testStore = Store(
       combineReducers({metricSettingReducer, formUpdateReducer}),
-      initialState:
-          AppState(distance: distance, time: initialTime, pace: initialPace),
+      initialState: AppState(
+          distanceNum: distance,
+          timeSeconds: initialTime,
+          paceSeconds: initialPace),
     );
 
     testStore
         .dispatch(TimeUpdateAction(time: updatedTime, shouldCalcPace: true));
 
-    expect(testStore.state.distance, distance);
-    expect(testStore.state.time, updatedTime);
-    expect(testStore.state.pace, updatedPace);
+    expect(testStore.state.distanceNum, distance);
+    expect(testStore.state.timeSeconds, updatedTime);
+    expect(testStore.state.paceSeconds, expectedCalculatedPace);
   });
 }
