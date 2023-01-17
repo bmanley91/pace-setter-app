@@ -3,7 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pace_tracker_app/redux/app_state.dart';
 import 'package:pace_tracker_app/redux/form_update_reducer.dart';
-import 'package:pace_tracker_app/redux/metric_setting_reducer.dart';
+import 'package:pace_tracker_app/redux/settings_reducer.dart';
 import 'package:pace_tracker_app/util/keys.dart';
 import 'package:pace_tracker_app/widgets/pages/time_calculator.dart';
 import 'package:redux/redux.dart';
@@ -16,7 +16,7 @@ void main() {
   setUp(() {
     timeCalculator = const TimeCalculator();
     store = Store<AppState>(
-        combineReducers({metricSettingReducer, formUpdateReducer}),
+        combineReducers({settingsReducer, formUpdateReducer}),
         initialState: AppState());
     testApp = StoreProvider<AppState>(
         store: store, child: MaterialApp(home: Scaffold(body: timeCalculator)));

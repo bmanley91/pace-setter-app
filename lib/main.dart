@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pace_tracker_app/redux/app_state.dart';
 import 'package:pace_tracker_app/redux/form_update_reducer.dart';
-import 'package:pace_tracker_app/redux/metric_setting_reducer.dart';
-import 'package:pace_tracker_app/widgets/pace_checker_app.dart';
+import 'package:pace_tracker_app/redux/settings_reducer.dart';
+import 'package:pace_tracker_app/widgets/app_wrapper.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_persist/redux_persist.dart';
 import 'package:redux_persist_flutter/redux_persist_flutter.dart';
@@ -21,13 +21,13 @@ void main() async {
   final store = Store<AppState>(
     combineReducers({
       formUpdateReducer,
-      metricSettingReducer,
+      settingsReducer,
     }),
     initialState: initialState ?? AppState(),
     middleware: [persistor.createMiddleware()],
   );
 
-  runApp(PaceCheckerApp(
+  runApp(AppWrapper(
     appStore: store,
   ));
 }
