@@ -23,7 +23,7 @@ class _DarkModeSwitchState extends State<DarkModeSwitch> {
         return SwitchListTile(
             title: const Text('Dark Mode'),
             value: viewModel.darkModeEnabled,
-            secondary: const Icon(Icons.language),
+            secondary: const Icon(Icons.dark_mode),
             onChanged: viewModel.onChange);
       },
     );

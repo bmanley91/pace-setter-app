@@ -14,12 +14,34 @@ void main() {
     expect(testStore.state.metricUnitsEnabled, false);
   });
 
-  test('emitting a flip action will flip the value of the store', () {
+  test(
+      'emitting a MetricUnitSettingUpdateAction will flip the value of the store',
+      () {
     Store<AppState> testStore = Store(
       settingsReducer,
       initialState: AppState(),
     );
     testStore.dispatch(MetricUnitSettingUpdateAction());
     expect(testStore.state.metricUnitsEnabled, true);
+  });
+
+  test('dark mode is disabled by default', () {
+    Store<AppState> testStore = Store(
+      settingsReducer,
+      initialState: AppState(),
+    );
+
+    expect(testStore.state.darkModeEnabled, false);
+  });
+
+  test(
+      'emitting a DarkModeSettingUpdateAction  will flip the value of the store',
+      () {
+    Store<AppState> testStore = Store(
+      settingsReducer,
+      initialState: AppState(),
+    );
+    testStore.dispatch(DarkModeSettingUpdateAction());
+    expect(testStore.state.darkModeEnabled, true);
   });
 }
