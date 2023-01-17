@@ -3,7 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pace_tracker_app/redux/app_state.dart';
 import 'package:pace_tracker_app/redux/form_update_reducer.dart';
-import 'package:pace_tracker_app/redux/metric_setting_reducer.dart';
+import 'package:pace_tracker_app/redux/settings_reducer.dart';
 import 'package:pace_tracker_app/util/keys.dart';
 import 'package:pace_tracker_app/widgets/pages/pace_calculator.dart';
 import 'package:redux/redux.dart';
@@ -20,7 +20,7 @@ void main() {
   testWidgets('Pace Calculator loads correctly when no fields are set',
       (WidgetTester tester) async {
     store = Store<AppState>(
-        combineReducers({metricSettingReducer, formUpdateReducer}),
+        combineReducers({settingsReducer, formUpdateReducer}),
         initialState: AppState());
     testApp = StoreProvider<AppState>(
         store: store, child: MaterialApp(home: Scaffold(body: paceCalculator)));
@@ -38,7 +38,7 @@ void main() {
       'Pace Calculator loads correctly when no fields are set and metric units enabled',
       (WidgetTester tester) async {
     store = Store<AppState>(
-        combineReducers({metricSettingReducer, formUpdateReducer}),
+        combineReducers({settingsReducer, formUpdateReducer}),
         initialState: AppState(metricUnitsEnabled: true));
     testApp = StoreProvider<AppState>(
         store: store, child: MaterialApp(home: Scaffold(body: paceCalculator)));
@@ -55,7 +55,7 @@ void main() {
   testWidgets('Pace Calculator loads correctly fields are set',
       (WidgetTester tester) async {
     store = Store<AppState>(
-        combineReducers({metricSettingReducer, formUpdateReducer}),
+        combineReducers({settingsReducer, formUpdateReducer}),
         initialState:
             AppState(paceSeconds: 600, distanceNum: 5, timeSeconds: 3000));
     testApp = StoreProvider<AppState>(
@@ -73,7 +73,7 @@ void main() {
       'Pace Calculator loads correctly fields are set and metric units are enabled',
       (WidgetTester tester) async {
     store = Store<AppState>(
-        combineReducers({metricSettingReducer, formUpdateReducer}),
+        combineReducers({settingsReducer, formUpdateReducer}),
         initialState: AppState(
             paceSeconds: 600,
             distanceNum: 5,

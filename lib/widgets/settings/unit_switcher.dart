@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:pace_tracker_app/redux/app_state.dart';
-import 'package:pace_tracker_app/redux/metric_state_action.dart';
+import 'package:pace_tracker_app/redux/settings_actions.dart';
 
 class UnitSwitcher extends StatefulWidget {
   const UnitSwitcher({super.key});
@@ -22,7 +22,8 @@ class _UnitSwitcherState extends State<UnitSwitcher> {
           onChanged: viewModel.onChange);
     }, converter: (store) {
       return _UnitSwitcherViewModel(
-          onChange: ((newState) => store.dispatch(MetricStateActions.flip)),
+          onChange: ((newState) =>
+              store.dispatch(MetricUnitSettingUpdateAction())),
           state: store.state);
     });
   }
