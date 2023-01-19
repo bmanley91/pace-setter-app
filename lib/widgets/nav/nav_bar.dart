@@ -30,8 +30,10 @@ class NavBar extends StatelessWidget {
         onTap: viewModel.onTapFunction,
       ),
       converter: (store) => _NavBarViewModel(onTapFunction: (value) {
-        debugPrint('123');
-        store.dispatch(FormClearAction());
+        debugPrint('$value tapped, current index $currentIndex');
+        if (value != currentIndex) {
+          store.dispatch(FormClearAction());
+        }
         onTap(value);
       }),
     );
