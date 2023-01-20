@@ -1,53 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 import 'package:pace_tracker_app/redux/app_state.dart';
 import 'package:pace_tracker_app/redux/settings_reducer.dart';
-import 'package:pace_tracker_app/widgets/settings/unit_switcher.dart';
+import 'package:pace_tracker_app/widgets/settings/dark_mode_switch.dart';
 import 'package:redux/redux.dart';
 
-class MockStore extends Mock implements Store<AppState> {}
-
 void main() {
-  const testKey = Key('test');
   late Widget testApp;
-  late UnitSwitcher unitSwitcher;
+  late DarkModeSwitch darkModeSwitch;
 
   setUp(() {
-    unitSwitcher = const UnitSwitcher(
-      key: testKey,
-    );
+    darkModeSwitch = const DarkModeSwitch();
     testApp = StoreProvider<AppState>(
       store: _store,
       child: MaterialApp(
         home: Scaffold(
-          body: unitSwitcher,
+          body: darkModeSwitch,
         ),
       ),
     );
   });
 
-  testWidgets('Unit Switcher initial state renders correctly',
+  testWidgets('Dark Mode Switch initial state renders correctly',
       (WidgetTester tester) async {
     await tester.pumpWidget(testApp);
 
-    expect(find.text('Use Metric Units?'), findsOneWidget);
-    expect(find.byIcon(Icons.language), findsOneWidget);
+    expect(find.text('Dark Mode'), findsOneWidget);
+    expect(find.byIcon(Icons.dark_mode), findsOneWidget);
     expect(
         find.byWidgetPredicate(
             (widget) => widget is SwitchListTile && widget.value == false),
         findsOneWidget);
   });
 
-  testWidgets(
-      'Flipping the switch updates the metricUnitsEnabled value in state',
+  testWidgets('Flipping the Dark Mode Switch updates the darkModeEnabled value',
       (WidgetTester tester) async {
     await tester.pumpWidget(testApp);
 
-    await tester.tap(find.byWidget(unitSwitcher));
+    await tester.tap(find.byWidget(darkModeSwitch));
 
-    expect(_store.state.metricUnitsEnabled, true);
+    expect(_store.state.darkModeEnabled, true);
   });
 }
 

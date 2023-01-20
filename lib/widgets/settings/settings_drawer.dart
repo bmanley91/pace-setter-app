@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pace_tracker_app/util/constants.dart';
-import 'package:pace_tracker_app/widgets/shill.dart';
-import 'package:pace_tracker_app/widgets/unit_switcher.dart';
+import 'package:pace_tracker_app/widgets/settings/dark_mode_switch.dart';
+import 'package:pace_tracker_app/widgets/settings/shill.dart';
+import 'package:pace_tracker_app/widgets/settings/unit_switcher.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SettingsDrawer extends StatefulWidget {
@@ -18,6 +19,7 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
       child: Column(
         children: const [
           SafeArea(child: UnitSwitcher()),
+          DarkModeSwitch(),
           Spacer(),
           SafeArea(child: Shill(urlLauncher: launch, url: kofiUrl))
         ],

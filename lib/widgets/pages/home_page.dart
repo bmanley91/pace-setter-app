@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pace_tracker_app/widgets/pace_calculator.dart';
-import 'package:pace_tracker_app/widgets/settings_drawer.dart';
-import 'package:pace_tracker_app/widgets/time_calculator.dart';
+import 'package:pace_tracker_app/widgets/nav/nav_bar.dart';
+import 'package:pace_tracker_app/widgets/pages/pace_calculator.dart';
+import 'package:pace_tracker_app/widgets/settings/settings_drawer.dart';
+import 'package:pace_tracker_app/widgets/pages/time_calculator.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -32,20 +33,9 @@ class _HomePageState extends State<HomePage> {
             child: Padding(
                 padding: const EdgeInsets.all(32),
                 child: _calculators.elementAt(_selectedNavIndex))),
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.fast_forward),
-              label: 'Pace',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.schedule),
-              label: 'Time',
-            ),
-          ],
-          currentIndex: _selectedNavIndex,
-          selectedItemColor: Colors.blue[500],
+        bottomNavigationBar: NavBar(
           onTap: _onNavTapped,
+          currentIndex: _selectedNavIndex,
         ));
   }
 }

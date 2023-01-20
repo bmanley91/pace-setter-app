@@ -19,6 +19,10 @@ double timeStringToSeconds(String timeString) {
 }
 
 String secondsToTimeString(double inputSeconds) {
+  if (inputSeconds == 0) {
+    return '';
+  }
+
   final hours = inputSeconds ~/ 3600;
   final remainder = inputSeconds - hours * 3600;
   final minutes = remainder ~/ 60;

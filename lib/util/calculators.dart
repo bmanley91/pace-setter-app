@@ -1,7 +1,5 @@
-import 'converters.dart';
+double calculateTimeSeconds(double paceSeconds, double distanceNum) =>
+    paceSeconds * distanceNum;
 
-String calculateTime(String pace, String distance) =>
-    secondsToTimeString(double.parse(distance) * timeStringToSeconds(pace));
-
-String calculatePace(String time, String distance) =>
-    secondsToTimeString(timeStringToSeconds(time) / double.parse(distance));
+double calculatePaceSeconds(double timeSeconds, double distanceNum) =>
+    timeSeconds / distanceNum;

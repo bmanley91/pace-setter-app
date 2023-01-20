@@ -1,0 +1,3 @@
+class MetricUnitSettingUpdateAction {}
+
+class DarkModeSettingUpdateAction {}
