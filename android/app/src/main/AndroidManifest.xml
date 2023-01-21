@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="manley.dev.pace_tracker_app">
    <application
-        android:label="pace_tracker_app"
+        android:label="Pace Checker"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
