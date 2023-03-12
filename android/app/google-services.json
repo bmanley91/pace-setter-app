@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "98737777551",
+    "project_id": "pace-tracker-17d05",
+    "storage_bucket": "pace-tracker-17d05.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:98737777551:android:31bf949d921cc976e879fa",
+        "android_client_info": {
+          "package_name": "manley.dev.pace_tracker_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "98737777551-2do3oi67hk0lc08p4snvr20stfvt8uda.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4mdj4SPPF1mTd_bDGxHX2s2NLJjPi-PI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "98737777551-2do3oi67hk0lc08p4snvr20stfvt8uda.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
