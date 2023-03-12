@@ -7,7 +7,7 @@ class AnalyticsClient {
 
   static final AnalyticsClient instance = AnalyticsClient._privateConstructor();
 
-  logPageLoad() async => await FirebaseAnalytics.instance.logEvent(
+  logPageLoad() => FirebaseAnalytics.instance.logEvent(
         name: 'page-load',
         parameters: {
           'environment': kDebugMode ? 'debug' : 'production',

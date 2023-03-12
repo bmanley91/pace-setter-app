@@ -1,0 +1,2 @@
+ignore:
+  - "lib/util/analytics.dart"
