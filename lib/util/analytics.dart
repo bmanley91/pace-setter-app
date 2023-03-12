@@ -8,13 +8,13 @@ class AnalyticsClient {
   static final AnalyticsClient instance = AnalyticsClient._privateConstructor();
   final environment = kDebugMode ? 'debug' : 'production';
 
-  logPageLoad() => _logEvent('page-loaded');
+  logPageLoad() => _logEvent('page_loaded');
 
-  logDistanceUpdated() => _logEvent('distance-updated');
-  logPaceUpdated() => _logEvent('pace-updated');
-  logTimeUpdated() => _logEvent('time-updated');
+  logDistanceUpdated() => _logEvent('distance_updated');
+  logPaceUpdated() => _logEvent('pace_updated');
+  logTimeUpdated() => _logEvent('time_updated');
 
-  logSettingsOpened() => _logEvent('settings-opened');
+  logSettingsOpened() => _logEvent('settings_opened');
 
   _logEvent(String eventName) => FirebaseAnalytics.instance.logEvent(
         name: eventName,
