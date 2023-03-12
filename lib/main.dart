@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:pace_tracker_app/redux/analytics_middleware.dart';
 import 'package:pace_tracker_app/redux/app_state.dart';
 import 'package:pace_tracker_app/redux/form_update_reducer.dart';
 import 'package:pace_tracker_app/redux/settings_reducer.dart';
@@ -28,7 +29,10 @@ void main() async {
       settingsReducer,
     }),
     initialState: initialState ?? AppState(),
-    middleware: [persistor.createMiddleware()],
+    middleware: [
+      persistor.createMiddleware(),
+      analyticsMiddleware,
+    ],
   );
 
   await Firebase.initializeApp(

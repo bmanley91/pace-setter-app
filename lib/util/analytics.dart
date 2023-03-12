@@ -6,11 +6,20 @@ class AnalyticsClient {
   AnalyticsClient._privateConstructor();
 
   static final AnalyticsClient instance = AnalyticsClient._privateConstructor();
+  final environment = kDebugMode ? 'debug' : 'production';
 
-  logPageLoad() => FirebaseAnalytics.instance.logEvent(
-        name: 'page-load',
+  logPageLoad() => _logEvent('page-loaded');
+
+  logDistanceUpdated() => _logEvent('distance-updated');
+  logPaceUpdated() => _logEvent('pace-updated');
+  logTimeUpdated() => _logEvent('time-updated');
+
+  logSettingsOpened() => _logEvent('settings-opened');
+
+  _logEvent(String eventName) => FirebaseAnalytics.instance.logEvent(
+        name: eventName,
         parameters: {
-          'environment': kDebugMode ? 'debug' : 'production',
+          'environment': environment,
         },
       );
 }

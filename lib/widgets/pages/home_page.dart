@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pace_tracker_app/util/analytics.dart';
 import 'package:pace_tracker_app/widgets/nav/nav_bar.dart';
 import 'package:pace_tracker_app/widgets/pages/pace_calculator.dart';
 import 'package:pace_tracker_app/widgets/settings/settings_drawer.dart';
@@ -28,7 +29,9 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           title: const Text('Pace Checker'),
         ),
-        endDrawer: const SettingsDrawer(),
+        endDrawer: SettingsDrawer(
+          analyticsClient: AnalyticsClient.instance,
+        ),
         body: Center(
             child: Padding(
                 padding: const EdgeInsets.all(32),
