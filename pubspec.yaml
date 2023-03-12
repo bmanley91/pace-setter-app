@@ -19,6 +19,7 @@ dependencies:
   redux_persist_flutter: ^0.9.0
   firebase_core: ^2.7.1
   firebase_analytics: ^10.1.5
+  firebase_crashlytics: ^3.0.16
 
 dev_dependencies:
   flutter_test:
